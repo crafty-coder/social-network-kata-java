@@ -7,9 +7,7 @@ public class SocialClient {
         String command;
         do{
             command = console.read();
-            System.out.println("reading " + command);
         }while (!"exit".equalsIgnoreCase(command));
-
 
     }
 }

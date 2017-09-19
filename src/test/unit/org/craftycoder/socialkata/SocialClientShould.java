@@ -1,5 +1,6 @@
 package org.craftycoder.socialkata;
 
+import org.craftycoder.socialkata.actions.PublishToTimeline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -16,30 +17,34 @@ public class SocialClientShould {
     @Mock
     private Console consoleMock;
 
-    @Test
-    public void read_commands_from_the_console() {
-
-        when(consoleMock.read()).thenReturn("exit");
-
-        new SocialClient(consoleMock);
-
-        verify(consoleMock,times(1)).read();
-
-    }
+    @Mock
+    private PublishToTimeline publishToTimelineMock;
 
     @Test
     public void stop_reading_commands_when_exit() {
 
         when(consoleMock.read())
-                .thenReturn("Alice")
                 .thenReturn("exit")
                 .thenThrow(new RuntimeException("Not Expected call"));
 
         new SocialClient(consoleMock);
 
-        verify(consoleMock, times(2)).read();
+        verify(consoleMock, times(1)).read();
 
     }
+    @Test
+    public void send_publish_commands_to_publish_to_timeline() {
+
+        when(consoleMock.read())
+                .thenReturn("Alice -> I love the weather today")
+                .thenReturn("exit");
+
+        new SocialClient(consoleMock);
+
+        verify(publishToTimelineMock,times(1)).publish("Alice","I love the weather today");
+
+    }
+
 
 
 }
