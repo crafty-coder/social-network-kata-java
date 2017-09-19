@@ -1,13 +1,23 @@
 package org.craftycoder.socialkata;
 
+import org.craftycoder.socialkata.actions.PublishToTimeline;
+
 public class SocialClient {
 
-    public SocialClient(Console console) {
+    public SocialClient(Console console, PublishToTimeline publishToTimeline) {
 
-        String command;
+        String textReaded;
         do{
-            command = console.read();
-        }while (!"exit".equalsIgnoreCase(command));
+            textReaded = console.read();
+            ifActionThenDispatch(textReaded,publishToTimeline);
 
+        }while (!"exit".equalsIgnoreCase(textReaded));
+
+    }
+
+    private void ifActionThenDispatch(String text, PublishToTimeline publishToTimeline){
+        if (!"exit".equalsIgnoreCase(text)){
+            publishToTimeline.publish("Alice","I love the weather today");
+        }
     }
 }

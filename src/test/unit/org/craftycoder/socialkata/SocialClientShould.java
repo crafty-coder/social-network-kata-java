@@ -4,7 +4,6 @@ import org.craftycoder.socialkata.actions.PublishToTimeline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.times;
@@ -27,7 +26,7 @@ public class SocialClientShould {
                 .thenReturn("exit")
                 .thenThrow(new RuntimeException("Not Expected call"));
 
-        new SocialClient(consoleMock);
+        new SocialClient(consoleMock,publishToTimelineMock);
 
         verify(consoleMock, times(1)).read();
 
@@ -39,7 +38,7 @@ public class SocialClientShould {
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock);
+        new SocialClient(consoleMock,publishToTimelineMock);
 
         verify(publishToTimelineMock,times(1)).publish("Alice","I love the weather today");
 

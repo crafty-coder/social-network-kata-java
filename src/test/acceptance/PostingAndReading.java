@@ -1,5 +1,6 @@
 import org.craftycoder.socialkata.Console;
 import org.craftycoder.socialkata.SocialClient;
+import org.craftycoder.socialkata.actions.PublishToTimeline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,15 +15,20 @@ public class PostingAndReading {
     @Mock
     private Console consoleMock;
 
+    @Mock
+    private PublishToTimeline publishToTimelineMock;
+
     @Test
     public void should_be_able_to_post_and_then_read_the_wall_with_that_post() {
 
-        Mockito.when(consoleMock.read()).thenReturn("Alice -> I love the weather today");
-        Mockito.when(consoleMock.read()).thenReturn("Alice");
+        Mockito.when(consoleMock.read())
+                .thenReturn("Alice -> I love the weather today")
+                .thenReturn("Alice")
+                .thenReturn("exit");
 
-        new SocialClient(consoleMock);
+        SocialClient a = new SocialClient(consoleMock, publishToTimelineMock);
 
-        Mockito.verify(consoleMock,times(1)).println("I love the weather today (less than one second ago)");
+        Mockito.verify(consoleMock, times(1)).println("I love the weather today (less than one second ago)");
     }
 
 
