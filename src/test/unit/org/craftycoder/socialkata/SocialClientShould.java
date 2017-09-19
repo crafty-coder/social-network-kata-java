@@ -26,7 +26,7 @@ public class SocialClientShould {
                 .thenReturn("exit")
                 .thenThrow(new RuntimeException("Not Expected call"));
 
-        new SocialClient(consoleMock,publishToTimelineMock);
+        new SocialClient(consoleMock,publishToTimelineMock).start();
 
         verify(consoleMock, times(1)).read();
 
@@ -38,7 +38,7 @@ public class SocialClientShould {
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock,publishToTimelineMock);
+        new SocialClient(consoleMock,publishToTimelineMock).start();
 
         verify(publishToTimelineMock,times(1)).publish("Alice","I love the weather today");
 

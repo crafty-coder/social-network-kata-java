@@ -26,7 +26,7 @@ public class PostingAndReading {
                 .thenReturn("Alice")
                 .thenReturn("exit");
 
-        SocialClient a = new SocialClient(consoleMock, publishToTimelineMock);
+        new SocialClient(consoleMock, publishToTimelineMock);
 
         Mockito.verify(consoleMock, times(1)).println("I love the weather today (less than one second ago)");
     }

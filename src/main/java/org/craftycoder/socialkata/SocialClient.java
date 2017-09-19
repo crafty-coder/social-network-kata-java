@@ -4,19 +4,27 @@ import org.craftycoder.socialkata.actions.PublishToTimeline;
 
 public class SocialClient {
 
+    private static final String EXIT = "exit";
+
+    private final Console console;
+    private final PublishToTimeline publishToTimeline;
+
     public SocialClient(Console console, PublishToTimeline publishToTimeline) {
-
-        String textReaded;
-        do{
-            textReaded = console.read();
-            ifActionThenDispatch(textReaded,publishToTimeline);
-
-        }while (!"exit".equalsIgnoreCase(textReaded));
-
+        this.console = console;
+        this.publishToTimeline = publishToTimeline;
     }
 
-    private void ifActionThenDispatch(String text, PublishToTimeline publishToTimeline){
-        if (!"exit".equalsIgnoreCase(text)){
+    void start() {
+        String textRead;
+        do{
+            textRead = console.read();
+            ifActionThenDispatch(textRead);
+
+        }while (!EXIT.equalsIgnoreCase(textRead));
+    }
+
+    private void ifActionThenDispatch(String text){
+        if (!EXIT.equalsIgnoreCase(text)){
             publishToTimeline.publish("Alice","I love the weather today");
         }
     }
