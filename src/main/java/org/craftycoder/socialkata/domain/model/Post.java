@@ -1,4 +1,4 @@
-package org.craftycoder.socialkata.model;
+package org.craftycoder.socialkata.domain.model;
 
 public class Post {
 

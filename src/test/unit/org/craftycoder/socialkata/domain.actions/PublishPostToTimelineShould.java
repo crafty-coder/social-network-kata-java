@@ -1,7 +1,8 @@
 package org.craftycoder.socialkata.actions;
 
-import org.craftycoder.socialkata.model.Post;
-import org.craftycoder.socialkata.model.PostRepository;
+import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
+import org.craftycoder.socialkata.domain.model.Post;
+import org.craftycoder.socialkata.domain.model.PostRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

@@ -1,6 +1,6 @@
 package org.craftycoder.socialkata;
 
-import org.craftycoder.socialkata.actions.PublishPostToTimeline;
+import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,8 +1,8 @@
-package org.craftycoder.socialkata.actions;
+package org.craftycoder.socialkata.domain.actions;
 
 
-import org.craftycoder.socialkata.model.Post;
-import org.craftycoder.socialkata.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Post;
+import org.craftycoder.socialkata.domain.model.PostRepository;
 
 public class PublishPostToTimeline {
 
