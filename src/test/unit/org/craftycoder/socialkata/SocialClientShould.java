@@ -1,6 +1,6 @@
 package org.craftycoder.socialkata;
 
-import org.craftycoder.socialkata.actions.PublishToTimeline;
+import org.craftycoder.socialkata.actions.PublishPostToTimeline;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -15,7 +15,7 @@ public class SocialClientShould {
     private Console consoleMock;
 
     @Mock
-    private PublishToTimeline publishToTimelineMock;
+    private PublishPostToTimeline publishPostToTimelineMock;
 
     @Test
     public void stop_reading_commands_when_exit() {
@@ -24,7 +24,7 @@ public class SocialClientShould {
                 .thenReturn("exit")
                 .thenThrow(new RuntimeException("Not Expected call"));
 
-        new SocialClient(consoleMock, publishToTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock).start();
 
         verify(consoleMock, times(1)).read();
 
@@ -37,9 +37,9 @@ public class SocialClientShould {
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock, publishToTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock).start();
 
-        verify(publishToTimelineMock, times(1)).publish("Alice", "I love the weather today");
+        verify(publishPostToTimelineMock, times(1)).publishPost("Alice", "I love the weather today");
 
     }
 
@@ -51,10 +51,10 @@ public class SocialClientShould {
                 .thenReturn("Bob -> Damn! We lost!")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock, publishToTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock).start();
 
-        verify(publishToTimelineMock, times(1)).publish("Alice", "I love the weather today");
-        verify(publishToTimelineMock, times(1)).publish("Bob", "Damn! We lost!");
+        verify(publishPostToTimelineMock, times(1)).publishPost("Alice", "I love the weather today");
+        verify(publishPostToTimelineMock, times(1)).publishPost("Bob", "Damn! We lost!");
 
     }
 

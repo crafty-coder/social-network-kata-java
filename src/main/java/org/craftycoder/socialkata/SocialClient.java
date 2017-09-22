@@ -1,6 +1,6 @@
 package org.craftycoder.socialkata;
 
-import org.craftycoder.socialkata.actions.PublishToTimeline;
+import org.craftycoder.socialkata.actions.PublishPostToTimeline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,11 +12,11 @@ public class SocialClient {
     private static final Pattern msgPattern = Pattern.compile("^.+\\s->\\s(.+)$");
 
     private final Console console;
-    private final PublishToTimeline publishToTimeline;
+    private final PublishPostToTimeline publishPostToTimeline;
 
-    public SocialClient(Console console, PublishToTimeline publishToTimeline) {
+    public SocialClient(Console console, PublishPostToTimeline publishPostToTimeline) {
         this.console = console;
-        this.publishToTimeline = publishToTimeline;
+        this.publishPostToTimeline = publishPostToTimeline;
     }
 
     void start() {
@@ -31,7 +31,7 @@ public class SocialClient {
         if (!EXIT.equalsIgnoreCase(text)) {
             String user = userExtractor(text);
             String msg = msgExtractor(text);
-            publishToTimeline.publish(user, msg);
+            publishPostToTimeline.publishPost(user, msg);
         }
     }
 
