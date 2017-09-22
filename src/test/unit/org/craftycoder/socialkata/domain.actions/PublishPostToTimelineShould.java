@@ -1,6 +1,5 @@
-package org.craftycoder.socialkata.actions;
+package org.craftycoder.socialkata.domain.actions;
 
-import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.PostRepository;
 import org.junit.Test;
@@ -8,7 +7,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,7 +22,7 @@ public class PublishPostToTimelineShould {
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(postRepositoryMock);
 
-        publishPostToTimeline.publishPost("Alice","I love the weather today");
+        publishPostToTimeline.publishPost("Alice", "I love the weather today");
 
         verify(postRepositoryMock, times(1)).save(new Post("Alice", "I love the weather today"));
 
