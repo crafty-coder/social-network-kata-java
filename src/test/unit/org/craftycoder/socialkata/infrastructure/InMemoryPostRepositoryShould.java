@@ -3,6 +3,7 @@ package org.craftycoder.socialkata.infrastructure;
 import org.craftycoder.socialkata.domain.model.Post;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class InMemoryPostRepositoryShould {
     public void retrieve_nothing_if_no_post_added() {
         InMemoryPostRepository inMemoryPostRepository = new InMemoryPostRepository();
 
-        List result = inMemoryPostRepository.findByUser("Alice");
+        List result = inMemoryPostRepository.findByUserReverseSorting("Alice");
 
         assertEquals(Collections.emptyList(), result);
     }
@@ -30,7 +31,7 @@ public class InMemoryPostRepositoryShould {
 
         inMemoryPostRepository.save(ALICE_POST);
 
-        List result = inMemoryPostRepository.findByUser("Alice");
+        List result = inMemoryPostRepository.findByUserReverseSorting("Alice");
 
         assertEquals(Collections.singletonList(ALICE_POST), result);
     }
@@ -43,9 +44,23 @@ public class InMemoryPostRepositoryShould {
         inMemoryPostRepository.save(BOB_POST_1);
         inMemoryPostRepository.save(BOB_POST_2);
 
-        List result = inMemoryPostRepository.findByUser("Alice");
+        List result = inMemoryPostRepository.findByUserReverseSorting("Alice");
 
         assertEquals(Collections.singletonList(ALICE_POST), result);
+    }
+
+    @Test
+    public void retrieve_user_post_in_reverse_order() {
+
+        InMemoryPostRepository inMemoryPostRepository = new InMemoryPostRepository();
+
+        inMemoryPostRepository.save(BOB_POST_1);
+        inMemoryPostRepository.save(BOB_POST_2);
+
+        List result = inMemoryPostRepository.findByUserReverseSorting("Bob");
+
+        assertEquals(Arrays.asList(BOB_POST_2, BOB_POST_1), result);
+
     }
 
 

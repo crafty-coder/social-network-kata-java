@@ -6,5 +6,5 @@ public interface PostRepository {
 
     void save(Post post);
 
-    List<Post> findByUser(String user);
+    List<Post> findByUserReverseSorting(String user);
 }

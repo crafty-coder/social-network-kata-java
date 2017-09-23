@@ -30,7 +30,7 @@ public class ViewUserTimelineShould {
 
         ViewUserTimeline viewUserTimeline = new ViewUserTimeline(postRepositoryMock, clockMock);
 
-        when(postRepositoryMock.findByUser("Alice"))
+        when(postRepositoryMock.findByUserReverseSorting("Alice"))
                 .thenReturn(Collections.emptyList());
 
 
@@ -52,7 +52,7 @@ public class ViewUserTimelineShould {
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postRepositoryMock.findByUser("Alice"))
+        when(postRepositoryMock.findByUserReverseSorting("Alice"))
                 .thenReturn(Collections.singletonList(new Post("Alice", "I love the weather today", FEW_SECONDS_BEFORE)));
 
 
@@ -74,7 +74,7 @@ public class ViewUserTimelineShould {
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postRepositoryMock.findByUser("Bob"))
+        when(postRepositoryMock.findByUserReverseSorting("Bob"))
                 .thenReturn(Arrays.asList(
                         new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
                         new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)

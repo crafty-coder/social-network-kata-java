@@ -21,7 +21,7 @@ public class ViewUserTimeline {
 
     public List<String> view(String user) {
 
-        return postRepositoryMock.findByUser(user).stream()
+        return postRepositoryMock.findByUserReverseSorting(user).stream()
                 .map(this::formatPost)
                 .collect(Collectors.toList());
     }
