@@ -1,27 +1,27 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.util.TimeFormatter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ViewUserTimeline {
+public class ViewTimeline {
 
-    private final Timeline timelineMock;
+    private final Posts postsMock;
     private final Clock clockMock;
 
-    public ViewUserTimeline(Timeline timelineMock, Clock clockMock) {
+    public ViewTimeline(Posts postsMock, Clock clockMock) {
 
-        this.timelineMock = timelineMock;
+        this.postsMock = postsMock;
         this.clockMock = clockMock;
     }
 
     public List<String> view(String user) {
 
-        return timelineMock.filterByUserReverseSorting(user).stream()
+        return postsMock.filterByUserReverseSorting(user).stream()
                 .map(this::formatPost)
                 .collect(Collectors.toList());
     }

@@ -2,14 +2,14 @@ package org.craftycoder.socialkata.infrastructure;
 
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryTimeline implements Timeline {
+public class InMemoryPosts implements Posts {
 
     private final List<Post> posts = new ArrayList<>();
 

@@ -1,7 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,23 +12,23 @@ import static org.mockito.Mockito.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class PublishPostToTimelineShould {
+public class PublishPostShould {
 
     @Mock
-    private Timeline timelineMock;
+    private Posts postsMock;
     @Mock
     private Clock clockMock;
 
     @Test
     public void persist_post_when_a_post_is_publish() {
 
-        PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(timelineMock, clockMock);
+        PublishPost publishPost = new PublishPost(postsMock, clockMock);
         Long NOW = 15061671450000L;
         when(clockMock.now()).thenReturn(NOW);
 
-        publishPostToTimeline.publishPost("Alice", "I love the weather today");
+        publishPost.publishPost("Alice", "I love the weather today");
 
-        verify(timelineMock, times(1)).save(new Post("Alice", "I love the weather today", NOW));
+        verify(postsMock, times(1)).save(new Post("Alice", "I love the weather today", NOW));
     }
 
 

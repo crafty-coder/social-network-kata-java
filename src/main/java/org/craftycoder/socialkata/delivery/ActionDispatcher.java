@@ -1,8 +1,8 @@
 package org.craftycoder.socialkata.delivery;
 
 import org.craftycoder.socialkata.domain.actions.FollowUser;
-import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
-import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.actions.PublishPost;
+import org.craftycoder.socialkata.domain.actions.ViewTimeline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,14 +18,14 @@ public class ActionDispatcher {
     private static final Pattern msgPattern = Pattern.compile("^.+\\s->\\s(.+)$");
 
     private Console console;
-    private PublishPostToTimeline publishPostToTimeline;
-    private ViewUserTimeline viewUserTimeline;
+    private PublishPost publishPost;
+    private ViewTimeline viewTimeline;
     private FollowUser followUser;
 
-    public ActionDispatcher(Console console, PublishPostToTimeline publishPostToTimeline, ViewUserTimeline viewUserTimeline, FollowUser followUser) {
+    public ActionDispatcher(Console console, PublishPost publishPost, ViewTimeline viewTimeline, FollowUser followUser) {
         this.console = console;
-        this.publishPostToTimeline = publishPostToTimeline;
-        this.viewUserTimeline = viewUserTimeline;
+        this.publishPost = publishPost;
+        this.viewTimeline = viewTimeline;
         this.followUser = followUser;
     }
 
@@ -36,7 +36,7 @@ public class ActionDispatcher {
         } else if (isPublishTimelineAction(text)) {
             String user = userPublishExtractor(text);
             String msg = msgPublishExtractor(text);
-            publishPostToTimeline.publishPost(user, msg);
+            publishPost.publishPost(user, msg);
         } else if (isFollowAction(text)) {
             String follower = followerExtractor(text);
             String followed = followedExtractor(text);
@@ -44,7 +44,7 @@ public class ActionDispatcher {
             followUser.follow(follower, followed);
         } else if (isViewTimelineAction(text)) {
             String user = text;
-            viewUserTimeline.view(user)
+            viewTimeline.view(user)
                     .forEach(line -> console.println(line));
         }
     }

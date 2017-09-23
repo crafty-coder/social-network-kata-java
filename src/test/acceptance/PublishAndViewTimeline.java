@@ -1,13 +1,13 @@
 import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
-import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
-import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.actions.PublishPost;
+import org.craftycoder.socialkata.domain.actions.ViewTimeline;
 import org.craftycoder.socialkata.domain.model.Follows;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
-import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
+import org.craftycoder.socialkata.infrastructure.InMemoryPosts;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PublishAndViewUserTimeline {
+public class PublishAndViewTimeline {
 
     @Mock
     private Console consoleMock;
@@ -35,24 +35,24 @@ public class PublishAndViewUserTimeline {
                 .thenReturn("Alice")
                 .thenReturn("exit");
 
-        Timeline timeline = new InMemoryTimeline();
+        Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
-        PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                timeline,
+        PublishPost publishPost = new PublishPost(
+                posts,
                 clock
         );
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                timeline,
+        ViewTimeline viewTimeline = new ViewTimeline(
+                posts,
                 clock
         );
 
         FollowUser followUser = new FollowUser(follows);
 
 
-        SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
 
 
         sc.start();
@@ -62,31 +62,31 @@ public class PublishAndViewUserTimeline {
     }
 
     @Test
-    public void should_view_userTimeline_in_reverse_order() {
+    public void should_view_timeline_in_reverse_order() {
         Mockito.when(consoleMock.read())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Alice -> I love London's weather!")
                 .thenReturn("Alice")
                 .thenReturn("exit");
 
-        Timeline timeline = new InMemoryTimeline();
+        Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
-        PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                timeline,
+        PublishPost publishPost = new PublishPost(
+                posts,
                 clock
         );
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                timeline,
+        ViewTimeline viewTimeline = new ViewTimeline(
+                posts,
                 clock
         );
 
         FollowUser followUser = new FollowUser(follows);
 
 
-        SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
 
 
         sc.start();

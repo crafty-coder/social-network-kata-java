@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class InMemoryTimelineShould {
+public class InMemoryPostsShould {
 
     private Post ALICE_POST = new Post("Alice", "I love the weather today", System.currentTimeMillis());
     private Post BOB_POST_1 = new Post("Bob", "Good game though", System.currentTimeMillis());
@@ -18,7 +18,7 @@ public class InMemoryTimelineShould {
 
     @Test
     public void retrieve_nothing_if_no_post_added() {
-        InMemoryTimeline inMemoryPostRepository = new InMemoryTimeline();
+        InMemoryPosts inMemoryPostRepository = new InMemoryPosts();
 
         List result = inMemoryPostRepository.filterByUserReverseSorting("Alice");
 
@@ -27,7 +27,7 @@ public class InMemoryTimelineShould {
 
     @Test
     public void retrieve_alice_post_when_there_are_only_alice_posts() {
-        InMemoryTimeline inMemoryPostRepository = new InMemoryTimeline();
+        InMemoryPosts inMemoryPostRepository = new InMemoryPosts();
 
         inMemoryPostRepository.save(ALICE_POST);
 
@@ -38,7 +38,7 @@ public class InMemoryTimelineShould {
 
     @Test
     public void retrieve_only_alice_post_when_there_are_post_of_different_users() {
-        InMemoryTimeline inMemoryPostRepository = new InMemoryTimeline();
+        InMemoryPosts inMemoryPostRepository = new InMemoryPosts();
 
         inMemoryPostRepository.save(ALICE_POST);
         inMemoryPostRepository.save(BOB_POST_1);
@@ -52,7 +52,7 @@ public class InMemoryTimelineShould {
     @Test
     public void retrieve_user_post_in_reverse_order() {
 
-        InMemoryTimeline inMemoryPostRepository = new InMemoryTimeline();
+        InMemoryPosts inMemoryPostRepository = new InMemoryPosts();
 
         inMemoryPostRepository.save(BOB_POST_1);
         inMemoryPostRepository.save(BOB_POST_2);

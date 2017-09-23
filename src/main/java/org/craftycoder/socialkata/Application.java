@@ -3,31 +3,31 @@ package org.craftycoder.socialkata;
 import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
-import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
-import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.actions.PublishPost;
+import org.craftycoder.socialkata.domain.actions.ViewTimeline;
 import org.craftycoder.socialkata.domain.model.Follows;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.infrastructure.ConsoleShell;
 import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
-import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
+import org.craftycoder.socialkata.infrastructure.InMemoryPosts;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
 
 public class Application {
 
     public static void main(String[] args) {
 
-        Timeline timeline = new InMemoryTimeline();
+        Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
-        PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                timeline,
+        PublishPost publishPost = new PublishPost(
+                posts,
                 clock
         );
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                timeline,
+        ViewTimeline viewTimeline = new ViewTimeline(
+                posts,
                 clock
         );
 
@@ -35,7 +35,7 @@ public class Application {
 
         Console console = new ConsoleShell(System.in, System.out);
 
-        SocialClient sc = new SocialClient(console, publishPostToTimeline, viewUserTimeline, followUser);
+        SocialClient sc = new SocialClient(console, publishPost, viewTimeline, followUser);
         sc.start();
 
     }

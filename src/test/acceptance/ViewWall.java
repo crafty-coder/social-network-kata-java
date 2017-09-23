@@ -1,13 +1,13 @@
 import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
-import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
-import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.actions.PublishPost;
+import org.craftycoder.socialkata.domain.actions.ViewTimeline;
 import org.craftycoder.socialkata.domain.model.Follows;
-import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
-import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
+import org.craftycoder.socialkata.infrastructure.InMemoryPosts;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,23 +46,23 @@ public class ViewWall {
 
 
 
-        Timeline timeline = new InMemoryTimeline();
+        Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
 
-        PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                timeline,
+        PublishPost publishPost = new PublishPost(
+                posts,
                 clockMock
         );
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                timeline,
+        ViewTimeline viewTimeline = new ViewTimeline(
+                posts,
                 clockMock
         );
 
         FollowUser followUser = new FollowUser(follows);
 
 
-        SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
 
 
         sc.start();

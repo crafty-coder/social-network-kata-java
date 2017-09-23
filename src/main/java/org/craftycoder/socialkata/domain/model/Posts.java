@@ -2,7 +2,7 @@ package org.craftycoder.socialkata.domain.model;
 
 import java.util.List;
 
-public interface Timeline {
+public interface Posts {
 
     void save(Post post);
 
