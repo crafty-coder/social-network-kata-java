@@ -18,14 +18,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostingAndReadingInTimeline {
+public class PublishAndViewUserTimeline {
 
     @Mock
     private Console consoleMock;
 
 
     @Test
-    public void should_be_able_to_post_and_then_read_the_wall_with_that_post() {
+    public void should_publish_a_post_and_then_view_timeline_with_that_post() {
 
         Mockito.when(consoleMock.read())
                 .thenReturn("Alice -> I love the weather today")
@@ -56,7 +56,7 @@ public class PostingAndReadingInTimeline {
     }
 
     @Test
-    public void should_display_time_line_in_reverse_order_of_insertion() {
+    public void should_view_userTimeline_in_reverse_order() {
         Mockito.when(consoleMock.read())
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("Alice -> I love London's weather!")
