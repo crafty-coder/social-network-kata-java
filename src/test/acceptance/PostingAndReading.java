@@ -2,6 +2,7 @@ import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -22,6 +23,7 @@ public class PostingAndReading {
     @Mock
     private ViewUserTimeline viewUserTimelineMock;
 
+    @Ignore("Work in progress")
     @Test
     public void should_be_able_to_post_and_then_read_the_wall_with_that_post() {
 
