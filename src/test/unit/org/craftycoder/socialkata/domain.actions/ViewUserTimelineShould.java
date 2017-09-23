@@ -33,14 +33,10 @@ public class ViewUserTimelineShould {
         when(timelineMock.filterByUserReverseSorting("Alice"))
                 .thenReturn(Collections.emptyList());
 
-
         List<String> result = viewUserTimeline.view("Alice");
         List<String> expectedResult = Collections.emptyList();
 
-
         Assert.assertEquals(expectedResult, result);
-
-
     }
 
     @Test

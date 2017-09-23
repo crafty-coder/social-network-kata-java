@@ -1,5 +1,6 @@
 import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
+import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
 import org.craftycoder.socialkata.domain.model.Timeline;
@@ -55,8 +56,10 @@ public class ViewWall {
                 clockMock
         );
 
+        FollowUser followUser = new FollowUser();
 
-        SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline);
+
+        SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);
 
 
         sc.start();

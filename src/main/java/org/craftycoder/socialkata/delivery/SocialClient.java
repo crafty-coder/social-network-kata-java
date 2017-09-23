@@ -1,5 +1,6 @@
 package org.craftycoder.socialkata.delivery;
 
+import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
 
@@ -10,9 +11,9 @@ public class SocialClient {
     private final Console console;
     private final ActionDispatcher actionDispatcher;
 
-    public SocialClient(Console console, PublishPostToTimeline publishPostToTimeline, ViewUserTimeline viewUserTimeline) {
+    public SocialClient(Console console, PublishPostToTimeline publishPostToTimeline, ViewUserTimeline viewUserTimeline, FollowUser followUser) {
         this.console = console;
-        this.actionDispatcher = new ActionDispatcher(console, publishPostToTimeline, viewUserTimeline);
+        this.actionDispatcher = new ActionDispatcher(console, publishPostToTimeline, viewUserTimeline, followUser);
     }
 
     public void start() {

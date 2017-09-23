@@ -1,5 +1,6 @@
 package org.craftycoder.socialkata.delivery;
 
+import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
 import org.junit.Test;
@@ -23,6 +24,9 @@ public class SocialClientShould {
     @Mock
     private ViewUserTimeline viewUserTimelineMock;
 
+    @Mock
+    private FollowUser followUserMock;
+
     @Test
     public void stop_reading_commands_when_exit() {
 
@@ -30,7 +34,7 @@ public class SocialClientShould {
                 .thenReturn("exit")
                 .thenThrow(new RuntimeException("Not Expected call"));
 
-        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock, followUserMock).start();
 
         verify(consoleMock, times(1)).read();
 
@@ -43,7 +47,7 @@ public class SocialClientShould {
                 .thenReturn("Alice -> I love the weather today")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock, followUserMock).start();
 
         verify(publishPostToTimelineMock, times(1)).publishPost("Alice", "I love the weather today");
 
@@ -57,7 +61,7 @@ public class SocialClientShould {
                 .thenReturn("Bob -> Damn! We lost!")
                 .thenReturn("exit");
 
-        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock, followUserMock).start();
 
         verify(publishPostToTimelineMock, times(1)).publishPost("Alice", "I love the weather today");
         verify(publishPostToTimelineMock, times(1)).publishPost("Bob", "Damn! We lost!");
@@ -75,9 +79,27 @@ public class SocialClientShould {
         when(viewUserTimelineMock.view("Alice"))
                 .thenReturn(Collections.singletonList("I Love the weather today (5 minutes ago)"));
 
-        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock).start();
+        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock, followUserMock).start();
 
         verify(consoleMock, times(1)).println("I Love the weather today (5 minutes ago)");
+
+    }
+
+    @Test
+    public void send_follow_commands() {
+
+        when(consoleMock.read())
+                .thenReturn("Charlie follows Alice")
+                .thenReturn("exit");
+
+
+        when(viewUserTimelineMock.view("Alice"))
+                .thenReturn(Collections.singletonList("I Love the weather today (5 minutes ago)"));
+
+        new SocialClient(consoleMock, publishPostToTimelineMock, viewUserTimelineMock, followUserMock).start();
+
+        verify(followUserMock, times(1)).follow("Charlie","Alice");
+
 
     }
 

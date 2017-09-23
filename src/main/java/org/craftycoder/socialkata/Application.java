@@ -2,6 +2,7 @@ package org.craftycoder.socialkata;
 
 import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
+import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
 import org.craftycoder.socialkata.domain.model.Timeline;
@@ -27,9 +28,11 @@ public class Application {
                 clock
         );
 
+        FollowUser followUser = new FollowUser();
+
         Console console = new ConsoleShell(System.in, System.out);
 
-        SocialClient sc = new SocialClient(console, publishPostToTimeline, viewUserTimeline);
+        SocialClient sc = new SocialClient(console, publishPostToTimeline, viewUserTimeline, followUser);
         sc.start();
 
     }
