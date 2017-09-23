@@ -1,4 +1,4 @@
-package org.craftycoder.socialkata;
+package org.craftycoder.socialkata.delivery;
 
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;

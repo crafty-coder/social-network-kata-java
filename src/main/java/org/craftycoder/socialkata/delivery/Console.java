@@ -1,4 +1,4 @@
-package org.craftycoder.socialkata;
+package org.craftycoder.socialkata.delivery;
 
 public interface Console {
     void println(String line);
