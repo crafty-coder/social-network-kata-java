@@ -2,14 +2,14 @@ package org.craftycoder.socialkata.infrastructure;
 
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Timeline;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InMemoryPostRepository implements PostRepository {
+public class InMemoryTimeline implements Timeline {
 
     private final List<Post> posts = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class InMemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findByUserReverseSorting(String user) {
+    public List<Post> filterByUserReverseSorting(String user) {
 
         List<Post> userPosts = posts.stream()
                 .filter(p -> p.user.equals(user))

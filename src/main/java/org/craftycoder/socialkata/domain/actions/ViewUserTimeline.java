@@ -1,7 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.util.TimeFormatter;
 
@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 
 public class ViewUserTimeline {
 
-    private final PostRepository postRepositoryMock;
+    private final Timeline timelineMock;
     private final Clock clockMock;
 
-    public ViewUserTimeline(PostRepository postRepositoryMock, Clock clockMock) {
+    public ViewUserTimeline(Timeline timelineMock, Clock clockMock) {
 
-        this.postRepositoryMock = postRepositoryMock;
+        this.timelineMock = timelineMock;
         this.clockMock = clockMock;
     }
 
     public List<String> view(String user) {
 
-        return postRepositoryMock.findByUserReverseSorting(user).stream()
+        return timelineMock.filterByUserReverseSorting(user).stream()
                 .map(this::formatPost)
                 .collect(Collectors.toList());
     }

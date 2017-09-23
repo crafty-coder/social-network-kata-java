@@ -2,11 +2,10 @@ import org.craftycoder.socialkata.delivery.Console;
 import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
-import org.craftycoder.socialkata.domain.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
-import org.craftycoder.socialkata.infrastructure.InMemoryPostRepository;
+import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
@@ -19,7 +18,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PostingAndReading {
+public class PostingAndReadingInTimeline {
 
     @Mock
     private Console consoleMock;
@@ -33,16 +32,16 @@ public class PostingAndReading {
                 .thenReturn("Alice")
                 .thenReturn("exit");
 
-        PostRepository postRepository = new InMemoryPostRepository();
+        Timeline timeline = new InMemoryTimeline();
         Clock clock = new SystemClock();
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                postRepository,
+                timeline,
                 clock
         );
 
         ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                postRepository,
+                timeline,
                 clock
         );
 
@@ -64,16 +63,16 @@ public class PostingAndReading {
                 .thenReturn("Alice")
                 .thenReturn("exit");
 
-        PostRepository postRepository = new InMemoryPostRepository();
+        Timeline timeline = new InMemoryTimeline();
         Clock clock = new SystemClock();
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
-                postRepository,
+                timeline,
                 clock
         );
 
         ViewUserTimeline viewUserTimeline = new ViewUserTimeline(
-                postRepository,
+                timeline,
                 clock
         );
 

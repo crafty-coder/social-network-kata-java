@@ -2,21 +2,21 @@ package org.craftycoder.socialkata.domain.actions;
 
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
 
 public class PublishPostToTimeline {
 
-    private final PostRepository postRepository;
+    private final Timeline timeline;
     private final Clock clock;
 
-    public PublishPostToTimeline(PostRepository postRepository, Clock clock) {
-        this.postRepository = postRepository;
+    public PublishPostToTimeline(Timeline timeline, Clock clock) {
+        this.timeline = timeline;
         this.clock = clock;
     }
 
     public void publishPost(String user, String text) {
-        postRepository.save(new Post(user, text, clock.now()));
+        timeline.save(new Post(user, text, clock.now()));
     }
 
 }

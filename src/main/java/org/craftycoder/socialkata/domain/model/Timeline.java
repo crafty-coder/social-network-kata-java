@@ -2,9 +2,9 @@ package org.craftycoder.socialkata.domain.model;
 
 import java.util.List;
 
-public interface PostRepository {
+public interface Timeline {
 
     void save(Post post);
 
-    List<Post> findByUserReverseSorting(String user);
+    List<Post> filterByUserReverseSorting(String user);
 }

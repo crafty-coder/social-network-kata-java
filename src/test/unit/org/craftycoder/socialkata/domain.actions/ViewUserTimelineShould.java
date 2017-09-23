@@ -1,7 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.PostRepository;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class ViewUserTimelineShould {
 
     @Mock
-    private PostRepository postRepositoryMock;
+    private Timeline timelineMock;
     @Mock
     private Clock clockMock;
 
@@ -28,9 +28,9 @@ public class ViewUserTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_without_post() {
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(postRepositoryMock, clockMock);
+        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(timelineMock, clockMock);
 
-        when(postRepositoryMock.findByUserReverseSorting("Alice"))
+        when(timelineMock.filterByUserReverseSorting("Alice"))
                 .thenReturn(Collections.emptyList());
 
 
@@ -46,13 +46,13 @@ public class ViewUserTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_with_one_post() {
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(postRepositoryMock, clockMock);
+        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(timelineMock, clockMock);
         Long NOW = 1506167145_000L;
         Long FEW_SECONDS_BEFORE = 1506167130_000L;
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postRepositoryMock.findByUserReverseSorting("Alice"))
+        when(timelineMock.filterByUserReverseSorting("Alice"))
                 .thenReturn(Collections.singletonList(new Post("Alice", "I love the weather today", FEW_SECONDS_BEFORE)));
 
 
@@ -67,14 +67,14 @@ public class ViewUserTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_with_two_post() {
 
-        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(postRepositoryMock, clockMock);
+        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(timelineMock, clockMock);
         Long NOW = 1506167145_000L;
         Long ONE_MINUTE_BEFORE = 1506167080_000L;
         Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postRepositoryMock.findByUserReverseSorting("Bob"))
+        when(timelineMock.filterByUserReverseSorting("Bob"))
                 .thenReturn(Arrays.asList(
                         new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
                         new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)
