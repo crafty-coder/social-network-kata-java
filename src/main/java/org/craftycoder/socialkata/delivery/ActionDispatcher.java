@@ -28,15 +28,16 @@ public class ActionDispatcher {
         if (EXIT.equalsIgnoreCase(text)) {
             return;
         }
-        if (isPublishTimelineAction(text)) {
+        else if (isPublishTimelineAction(text)) {
             String user = userExtractor(text);
             String msg = msgExtractor(text);
             publishPostToTimeline.publishPost(user, msg);
         }
 
-        if (isViewTimelineAction(text)) {
+        else if (isViewTimelineAction(text)) {
             String user = text;
-            viewUserTimeline.view(user).forEach(console::println);
+            viewUserTimeline.view(user)
+                    .forEach(line -> console.println(line));
         }
     }
 

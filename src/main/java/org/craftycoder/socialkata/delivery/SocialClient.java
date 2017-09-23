@@ -15,7 +15,7 @@ public class SocialClient {
         this.actionDispatcher = new ActionDispatcher(console, publishPostToTimeline, viewUserTimeline);
     }
 
-    void start() {
+    public void start() {
         String textRead;
         do {
             textRead = console.read();
