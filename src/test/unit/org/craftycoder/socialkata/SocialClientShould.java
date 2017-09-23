@@ -65,7 +65,7 @@ public class SocialClientShould {
 
     }
 
-    @Ignore("Refactor") @Test
+    @Test
     public void recover_and_print_user_timeline() {
 
         when(consoleMock.read())
