@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata;
 
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
+import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +15,7 @@ public class SocialClient {
     private final Console console;
     private final PublishPostToTimeline publishPostToTimeline;
 
-    public SocialClient(Console console, PublishPostToTimeline publishPostToTimeline) {
+    public SocialClient(Console console, PublishPostToTimeline publishPostToTimeline, ViewUserTimeline viewUserTimeline) {
         this.console = console;
         this.publishPostToTimeline = publishPostToTimeline;
     }
