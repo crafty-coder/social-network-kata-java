@@ -3,6 +3,7 @@ import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPost;
 import org.craftycoder.socialkata.domain.actions.ViewTimeline;
+import org.craftycoder.socialkata.domain.actions.ViewWall;
 import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ViewWall {
+public class ViewWallShould {
 
     @Mock
     private Console consoleMock;
@@ -28,7 +29,8 @@ public class ViewWall {
     private Clock clockMock;
 
 
-    @Ignore("Work in porgress") @Test
+    @Ignore("Work in porgress")
+    @Test
     public void should_view_a_wall_aggregating_followings_timeline() {
 
 
@@ -45,7 +47,6 @@ public class ViewWall {
                 .thenReturn(300_000L);
 
 
-
         Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
 
@@ -60,9 +61,9 @@ public class ViewWall {
         );
 
         FollowUser followUser = new FollowUser(follows);
+        ViewWall viewWall = new ViewWall();
 
-
-        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
 
 
         sc.start();

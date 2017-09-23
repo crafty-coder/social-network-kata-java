@@ -3,6 +3,7 @@ package org.craftycoder.socialkata.delivery;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPost;
 import org.craftycoder.socialkata.domain.actions.ViewTimeline;
+import org.craftycoder.socialkata.domain.actions.ViewWall;
 
 public class SocialClient {
 
@@ -11,9 +12,9 @@ public class SocialClient {
     private final Console console;
     private final ActionDispatcher actionDispatcher;
 
-    public SocialClient(Console console, PublishPost publishPost, ViewTimeline viewTimeline, FollowUser followUser) {
+    public SocialClient(Console console, PublishPost publishPost, ViewTimeline viewTimeline, FollowUser followUser, ViewWall viewWall) {
         this.console = console;
-        this.actionDispatcher = new ActionDispatcher(console, publishPost, viewTimeline, followUser);
+        this.actionDispatcher = new ActionDispatcher(console, publishPost, viewTimeline, followUser, viewWall);
     }
 
     public void start() {

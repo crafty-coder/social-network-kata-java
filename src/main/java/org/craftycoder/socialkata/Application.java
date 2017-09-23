@@ -5,6 +5,7 @@ import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPost;
 import org.craftycoder.socialkata.domain.actions.ViewTimeline;
+import org.craftycoder.socialkata.domain.actions.ViewWall;
 import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
@@ -33,9 +34,11 @@ public class Application {
 
         FollowUser followUser = new FollowUser(follows);
 
+        ViewWall viewWall = new ViewWall();
+
         Console console = new ConsoleShell(System.in, System.out);
 
-        SocialClient sc = new SocialClient(console, publishPost, viewTimeline, followUser);
+        SocialClient sc = new SocialClient(console, publishPost, viewTimeline, followUser, viewWall);
         sc.start();
 
     }

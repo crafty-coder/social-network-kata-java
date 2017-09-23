@@ -3,6 +3,7 @@ import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPost;
 import org.craftycoder.socialkata.domain.actions.ViewTimeline;
+import org.craftycoder.socialkata.domain.actions.ViewWall;
 import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
@@ -16,9 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PublishAndViewTimeline {
@@ -51,8 +50,10 @@ public class PublishAndViewTimeline {
 
         FollowUser followUser = new FollowUser(follows);
 
+        ViewWall viewWall = new ViewWall();
 
-        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
+
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
 
 
         sc.start();
@@ -84,9 +85,9 @@ public class PublishAndViewTimeline {
         );
 
         FollowUser followUser = new FollowUser(follows);
+        ViewWall viewWall = new ViewWall();
 
-
-        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser);
+        SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
 
 
         sc.start();
