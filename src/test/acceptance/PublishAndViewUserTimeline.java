@@ -3,8 +3,10 @@ import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
+import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
 import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
 import org.junit.Test;
@@ -34,6 +36,7 @@ public class PublishAndViewUserTimeline {
                 .thenReturn("exit");
 
         Timeline timeline = new InMemoryTimeline();
+        Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
@@ -46,7 +49,7 @@ public class PublishAndViewUserTimeline {
                 clock
         );
 
-        FollowUser followUser = new FollowUser();
+        FollowUser followUser = new FollowUser(follows);
 
 
         SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);
@@ -67,6 +70,7 @@ public class PublishAndViewUserTimeline {
                 .thenReturn("exit");
 
         Timeline timeline = new InMemoryTimeline();
+        Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
@@ -79,7 +83,7 @@ public class PublishAndViewUserTimeline {
                 clock
         );
 
-        FollowUser followUser = new FollowUser();
+        FollowUser followUser = new FollowUser(follows);
 
 
         SocialClient sc = new SocialClient(consoleMock, publishPostToTimeline, viewUserTimeline, followUser);

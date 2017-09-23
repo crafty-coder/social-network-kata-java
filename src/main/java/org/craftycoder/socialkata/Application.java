@@ -5,9 +5,11 @@ import org.craftycoder.socialkata.delivery.SocialClient;
 import org.craftycoder.socialkata.domain.actions.FollowUser;
 import org.craftycoder.socialkata.domain.actions.PublishPostToTimeline;
 import org.craftycoder.socialkata.domain.actions.ViewUserTimeline;
+import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.infrastructure.ConsoleShell;
+import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
 import org.craftycoder.socialkata.infrastructure.InMemoryTimeline;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
 
@@ -16,6 +18,7 @@ public class Application {
     public static void main(String[] args) {
 
         Timeline timeline = new InMemoryTimeline();
+        Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
 
         PublishPostToTimeline publishPostToTimeline = new PublishPostToTimeline(
@@ -28,7 +31,7 @@ public class Application {
                 clock
         );
 
-        FollowUser followUser = new FollowUser();
+        FollowUser followUser = new FollowUser(follows);
 
         Console console = new ConsoleShell(System.in, System.out);
 
