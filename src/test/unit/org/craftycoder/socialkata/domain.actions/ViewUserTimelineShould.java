@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,5 +63,34 @@ public class ViewUserTimelineShould {
         Assert.assertEquals(expectedResult, result);
 
     }
+
+    @Test
+    public void recover_the_timeline_of_a_user_with_two_post() {
+
+        ViewUserTimeline viewUserTimeline = new ViewUserTimeline(postRepositoryMock, clockMock);
+        Long NOW = 1506167145_000L;
+        Long ONE_MINUTE_BEFORE = 1506167080_000L;
+        Long TWO_MINUTES_BEFORE = 1506167015_000L;
+
+        when(clockMock.now())
+                .thenReturn(NOW);
+        when(postRepositoryMock.findByUser("Bob"))
+                .thenReturn(Arrays.asList(
+                        new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
+                        new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)
+                ));
+
+
+        List<String> result = viewUserTimeline.view("Bob");
+        List<String> expectedResult = Arrays.asList(
+                "Good game though. (1 minute ago)",
+                "Damn! We lost! (2 minutes ago)"
+        );
+
+
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
 
 }
