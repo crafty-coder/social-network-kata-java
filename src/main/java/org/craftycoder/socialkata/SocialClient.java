@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class SocialClient {
 
     private static final String EXIT = "exit";
+    private static final Pattern publishToTimeLinePattern = Pattern.compile("^.+\\s->.*$");
     private static final Pattern userPattern = Pattern.compile("^(.+)\\s->.*$");
     private static final Pattern msgPattern = Pattern.compile("^.+\\s->\\s(.+)$");
 
@@ -29,11 +30,20 @@ public class SocialClient {
     }
 
     private void ifActionThenDispatch(String text) {
-        if (!EXIT.equalsIgnoreCase(text)) {
+        if (EXIT.equalsIgnoreCase(text)) {
+           return;
+        }
+        if (isPublishTimelineAction(text)){
             String user = userExtractor(text);
             String msg = msgExtractor(text);
             publishPostToTimeline.publishPost(user, msg);
         }
+
+    }
+
+    private Boolean isPublishTimelineAction(String text){
+        Matcher m =  publishToTimeLinePattern.matcher(text);
+        return m.find();
     }
 
     private String userExtractor(String text) {
