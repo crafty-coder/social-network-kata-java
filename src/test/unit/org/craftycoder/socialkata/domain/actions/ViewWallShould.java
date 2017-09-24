@@ -2,6 +2,7 @@ package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.model.Wall;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.service.WallService;
@@ -30,23 +31,22 @@ public class ViewWallShould {
     private Long ONE_MINUTE_BEFORE = 1506167080_000L;
     private Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
-    private Post ALICE_POST = new Post("Alice", "I love the weather today", NOW);
-    private Post BOB_POST_1 = new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE);
-    private Post BOB_POST_2 = new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE);
+    private Post ALICE_POST = new Post(new User("Alice"), "I love the weather today", NOW);
+    private Post BOB_POST_1 = new Post(new User("Bob"), "Good game though.", ONE_MINUTE_BEFORE);
+    private Post BOB_POST_2 = new Post(new User("Bob"), "Damn! We lost!", TWO_MINUTES_BEFORE);
 
     private Timeline BOB_Timeline = new Timeline(Arrays.asList(BOB_POST_1, BOB_POST_2));
 
     private Timeline Alice_Timeline = new Timeline(Collections.singletonList(ALICE_POST));
-    private Wall Alice_Wall = new Wall(Arrays.asList(BOB_Timeline,Alice_Timeline));
+    private Wall Alice_Wall = new Wall(Arrays.asList(BOB_Timeline, Alice_Timeline));
 
     private Wall EMPTY_WALL = new Wall(Collections.singletonList(new Timeline(Collections.emptyList())));
-
 
 
     @Test
     public void recover_an_empty_wall() {
 
-        when(wallServiceMock.getWall("Charlie"))
+        when(wallServiceMock.getWall(new User("Charlie")))
                 .thenReturn(EMPTY_WALL);
 
         ViewWall viewWall = new ViewWall(wallServiceMock, clockMock);
@@ -60,7 +60,7 @@ public class ViewWallShould {
     @Test
     public void recover_a_wall_of_a_user_who_follows_no_one_with_two_posts() {
 
-        when(wallServiceMock.getWall("Alice"))
+        when(wallServiceMock.getWall(new User("Alice")))
                 .thenReturn(Alice_Wall);
 
         when(clockMock.now())

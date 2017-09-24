@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Follows;
+import org.craftycoder.socialkata.domain.model.User;
 
 public class FollowUser {
 
@@ -12,6 +13,6 @@ public class FollowUser {
     }
 
     public void follow(String follower, String followed) {
-        follows.addFollow(follower, followed);
+        follows.addFollow(new User(follower), new User(followed));
     }
 }

@@ -13,9 +13,9 @@ public class WallShould {
     private Long ONE_MINUTE_BEFORE = 1506167080_000L;
     private Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
-    private Post ALICE_POST = new Post("Alice", "I love the weather today", NOW);
-    private Post BOB_POST_1 = new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE);
-    private Post BOB_POST_2 = new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE);
+    private Post ALICE_POST = new Post(new User("Alice"), "I love the weather today", NOW);
+    private Post BOB_POST_1 = new Post(new User("Bob"), "Good game though.", ONE_MINUTE_BEFORE);
+    private Post BOB_POST_2 = new Post(new User("Bob"), "Damn! We lost!", TWO_MINUTES_BEFORE);
 
     private Timeline BOB_Timeline = new Timeline(Arrays.asList(BOB_POST_1, BOB_POST_2));
 

@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Follows;
+import org.craftycoder.socialkata.domain.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -24,7 +25,7 @@ public class FollowUserTestShould {
         FollowUser followUser = new FollowUser(followsMock);
         followUser.follow(follower, followed);
 
-        verify(followsMock, times(1)).addFollow(follower, followed);
+        verify(followsMock, times(1)).addFollow(new User(follower), new User(followed));
     }
 
 }

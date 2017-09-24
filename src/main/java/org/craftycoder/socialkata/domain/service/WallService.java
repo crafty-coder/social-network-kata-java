@@ -2,6 +2,7 @@ package org.craftycoder.socialkata.domain.service;
 
 import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.model.Wall;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class WallService {
         this.follows = follows;
     }
 
-    public Wall getWall(String user) {
+    public Wall getWall(User user) {
 
-        Set<String> users = follows.followedBy(user);
+        Set<User> users = follows.followedBy(user);
         users.add(user);
 
         List<Timeline> timelines = users.stream()

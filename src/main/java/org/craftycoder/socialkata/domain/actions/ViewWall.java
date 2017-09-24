@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.service.WallService;
 import org.craftycoder.socialkata.domain.util.TimeFormatter;
@@ -21,7 +22,7 @@ public class ViewWall {
 
     public List<String> view(final String user) {
 
-        return wallService.getWall(user)
+        return wallService.getWall(new User(user))
                 .aggregatedPosts()
                 .stream()
                 .map(this::formatPost)
@@ -29,7 +30,7 @@ public class ViewWall {
     }
 
     private String formatPost(final Post post) {
-        return post.user + " - " + post.message + " " + TimeFormatter.timeAgoFormatter(clock.now(), post.timestamp);
+        return post.user.name + " - " + post.message + " " + TimeFormatter.timeAgoFormatter(clock.now(), post.timestamp);
     }
 
 

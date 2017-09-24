@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.infrastructure;
 
 import org.craftycoder.socialkata.domain.model.Follows;
+import org.craftycoder.socialkata.domain.model.User;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -16,7 +17,7 @@ public class InMemoryFollowsShould {
 
         Follows follows = new InMemoryFollows();
 
-        Set<String> result = follows.followedBy("Bob");
+        Set<User> result = follows.followedBy(new User("Bob"));
 
         assertEquals(Collections.emptySet(), result);
 
@@ -27,11 +28,11 @@ public class InMemoryFollowsShould {
 
         Follows follows = new InMemoryFollows();
 
-        follows.addFollow("Bob", "Alice");
+        follows.addFollow(new User("Bob"), new User("Alice"));
 
-        Set<String> result = follows.followedBy("Bob");
+        Set<User> result = follows.followedBy(new User("Bob"));
 
-        assertEquals(Collections.singleton("Alice"), result);
+        assertEquals(Collections.singleton(new User("Alice")), result);
 
     }
 
@@ -40,14 +41,14 @@ public class InMemoryFollowsShould {
 
         Follows follows = new InMemoryFollows();
 
-        follows.addFollow("Bob", "Alice");
-        follows.addFollow("Bob", "Charlie");
+        follows.addFollow(new User("Bob"), new User("Alice"));
+        follows.addFollow(new User("Bob"), new User("Charlie"));
 
-        Set<String> result = follows.followedBy("Bob");
+        Set<User> result = follows.followedBy(new User("Bob"));
 
-        Set<String> expectedFollowed = new HashSet<String>() {{
-            add("Alice");
-            add("Charlie");
+        Set<User> expectedFollowed = new HashSet<User>() {{
+            add(new User("Alice"));
+            add(new User("Charlie"));
         }};
 
         assertEquals(expectedFollowed, result);

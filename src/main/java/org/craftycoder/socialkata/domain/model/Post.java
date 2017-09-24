@@ -2,11 +2,11 @@ package org.craftycoder.socialkata.domain.model;
 
 public class Post {
 
-    public final String user;
+    public final User user;
     public final String message;
     public final Long timestamp;
 
-    public Post(final String user, final String message, final Long timestamp) {
+    public Post(final User user, final String message, final Long timestamp) {
         this.user = user;
         this.message = message;
         this.timestamp = timestamp;

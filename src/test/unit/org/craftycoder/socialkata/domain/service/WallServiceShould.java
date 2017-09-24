@@ -1,9 +1,6 @@
 package org.craftycoder.socialkata.domain.service;
 
-import org.craftycoder.socialkata.domain.model.Follows;
-import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Timeline;
-import org.craftycoder.socialkata.domain.model.Wall;
+import org.craftycoder.socialkata.domain.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +27,9 @@ public class WallServiceShould {
     private Long ONE_MINUTE_BEFORE = 1506167080_000L;
     private Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
-    private Post ALICE_POST = new Post("Alice", "I love the weather today", NOW);
-    private Post BOB_POST_1 = new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE);
-    private Post BOB_POST_2 = new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE);
+    private Post ALICE_POST = new Post(new User("Alice"), "I love the weather today", NOW);
+    private Post BOB_POST_1 = new Post(new User("Bob"), "Good game though.", ONE_MINUTE_BEFORE);
+    private Post BOB_POST_2 = new Post(new User("Bob"), "Damn! We lost!", TWO_MINUTES_BEFORE);
 
     private Timeline Charlie_Timeline = new Timeline(Collections.emptyList());
     private Wall Charlie_Wall = new Wall(Collections.singletonList(Charlie_Timeline));
@@ -41,17 +38,17 @@ public class WallServiceShould {
     private Wall BOB_Wall = new Wall(Collections.singletonList(BOB_Timeline));
 
     private Timeline Alice_Timeline = new Timeline(Collections.singletonList(ALICE_POST));
-    private Wall Alice_Wall = new Wall(Arrays.asList(BOB_Timeline,Alice_Timeline));
+    private Wall Alice_Wall = new Wall(Arrays.asList(BOB_Timeline, Alice_Timeline));
 
 
     @Test
     public void recover_a_empty_wall() {
 
-        when(timelineServiceMock.getTimeline("Charlie")).thenReturn(Charlie_Timeline);
+        when(timelineServiceMock.getTimeline(new User("Charlie"))).thenReturn(Charlie_Timeline);
 
         WallService wallService = new WallService(timelineServiceMock, follows);
 
-        Wall result = wallService.getWall("Charlie");
+        Wall result = wallService.getWall(new User("Charlie"));
 
         Assert.assertEquals(Charlie_Wall, result);
 
@@ -60,11 +57,11 @@ public class WallServiceShould {
     @Test
     public void recover_a_wall_of_a_user_who_follows_no_one() {
 
-        when(timelineServiceMock.getTimeline("Bob")).thenReturn(BOB_Timeline);
+        when(timelineServiceMock.getTimeline(new User("Bob"))).thenReturn(BOB_Timeline);
 
         WallService wallService = new WallService(timelineServiceMock, follows);
 
-        Wall result = wallService.getWall("Bob");
+        Wall result = wallService.getWall(new User("Bob"));
 
         Assert.assertEquals(BOB_Wall, result);
 
@@ -73,25 +70,23 @@ public class WallServiceShould {
     @Test
     public void recover_a_wall_user_who_follows_someone() {
 
-        Set<String> followedByAlice = new HashSet<String>() {{
-            add("Bob");
+        Set<User> followedByAlice = new HashSet<User>() {{
+            add(new User("Bob"));
         }};
 
-        when(follows.followedBy("Alice")).thenReturn(followedByAlice);
+        when(follows.followedBy(new User("Alice"))).thenReturn(followedByAlice);
 
-        when(timelineServiceMock.getTimeline("Bob")).thenReturn(BOB_Timeline);
-        when(timelineServiceMock.getTimeline("Alice")).thenReturn(Alice_Timeline);
+        when(timelineServiceMock.getTimeline(new User("Bob"))).thenReturn(BOB_Timeline);
+        when(timelineServiceMock.getTimeline(new User("Alice"))).thenReturn(Alice_Timeline);
 
 
         WallService wallService = new WallService(timelineServiceMock, follows);
 
-        Wall result = wallService.getWall("Alice");
+        Wall result = wallService.getWall(new User("Alice"));
 
         Assert.assertEquals(Alice_Wall, result);
 
     }
-
-
 
 
 }

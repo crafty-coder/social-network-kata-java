@@ -3,6 +3,7 @@ package org.craftycoder.socialkata.infrastructure;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Posts;
+import org.craftycoder.socialkata.domain.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class InMemoryPosts implements Posts {
     }
 
     @Override
-    public List<Post> filterByUserReverseSorting(String user) {
+    public List<Post> filterByUserReverseSorting(User user) {
 
         List<Post> userPosts = posts.stream()
                 .filter(p -> p.user.equals(user))

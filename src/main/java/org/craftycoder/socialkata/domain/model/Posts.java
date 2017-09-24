@@ -6,5 +6,5 @@ public interface Posts {
 
     void save(Post post);
 
-    List<Post> filterByUserReverseSorting(String user);
+    List<Post> filterByUserReverseSorting(User user);
 }

@@ -3,6 +3,7 @@ package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Posts;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.ports.Clock;
 
 public class PublishPost {
@@ -16,7 +17,7 @@ public class PublishPost {
     }
 
     public void publishPost(String user, String text) {
-        posts.save(new Post(user, text, clock.now()));
+        posts.save(new Post(new User(user), text, clock.now()));
     }
 
 }

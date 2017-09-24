@@ -2,6 +2,7 @@ package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Posts;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class PublishPostShould {
 
         publishPost.publishPost("Alice", "I love the weather today");
 
-        verify(postsMock, times(1)).save(new Post("Alice", "I love the weather today", NOW));
+        verify(postsMock, times(1)).save(new Post(new User("Alice"), "I love the weather today", NOW));
     }
 
 

@@ -2,6 +2,7 @@ package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.service.TimelineService;
 import org.junit.Assert;
@@ -31,7 +32,7 @@ public class ViewTimelineShould {
 
         ViewTimeline viewTimeline = new ViewTimeline(timelineServiceMock, clockMock);
 
-        when(timelineServiceMock.getTimeline("Alice"))
+        when(timelineServiceMock.getTimeline(new User("Alice")))
                 .thenReturn(new Timeline(Collections.emptyList()));
 
         List<String> result = viewTimeline.view("Alice");
@@ -49,9 +50,9 @@ public class ViewTimelineShould {
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(timelineServiceMock.getTimeline("Alice"))
+        when(timelineServiceMock.getTimeline(new User("Alice")))
                 .thenReturn(new Timeline(Collections.singletonList(
-                        new Post("Alice", "I love the weather today", FEW_SECONDS_BEFORE))
+                        new Post(new User("Alice"), "I love the weather today", FEW_SECONDS_BEFORE))
                 ));
 
 
@@ -73,11 +74,11 @@ public class ViewTimelineShould {
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(timelineServiceMock.getTimeline("Bob"))
+        when(timelineServiceMock.getTimeline(new User("Bob")))
                 .thenReturn(new Timeline(
                         Arrays.asList(
-                                new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
-                                new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)
+                                new Post(new User("Bob"), "Good game though.", ONE_MINUTE_BEFORE),
+                                new Post(new User("Bob"), "Damn! We lost!", TWO_MINUTES_BEFORE)
                         )));
 
 

@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.infrastructure;
 
 import org.craftycoder.socialkata.domain.model.Follows;
+import org.craftycoder.socialkata.domain.model.User;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,12 +10,12 @@ import java.util.Set;
 
 public class InMemoryFollows implements Follows {
 
-    private final Map<String, Set<String>> follows = new HashMap<>();
+    private final Map<User, Set<User>> follows = new HashMap<>();
 
     @Override
-    public void addFollow(String follower, String followed) {
+    public void addFollow(User follower, User followed) {
 
-        Set<String> followedUsers = followedBy(follower);
+        Set<User> followedUsers = followedBy(follower);
 
         followedUsers.add(followed);
 
@@ -22,7 +23,7 @@ public class InMemoryFollows implements Follows {
 
     }
 
-    public Set<String> followedBy(String user) {
+    public Set<User> followedBy(User user) {
         return follows
                 .getOrDefault(user, new HashSet<>());
     }

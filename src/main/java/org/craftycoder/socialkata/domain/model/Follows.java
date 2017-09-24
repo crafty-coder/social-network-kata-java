@@ -3,7 +3,7 @@ package org.craftycoder.socialkata.domain.model;
 import java.util.Set;
 
 public interface Follows {
-    void addFollow(String follower, String followed);
+    void addFollow(User follower, User followed);
 
-    Set<String> followedBy(String user);
+    Set<User> followedBy(User user);
 }

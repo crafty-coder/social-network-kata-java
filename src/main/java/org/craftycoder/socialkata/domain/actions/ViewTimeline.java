@@ -1,6 +1,7 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
+import org.craftycoder.socialkata.domain.model.User;
 import org.craftycoder.socialkata.domain.ports.Clock;
 import org.craftycoder.socialkata.domain.service.TimelineService;
 import org.craftycoder.socialkata.domain.util.TimeFormatter;
@@ -21,7 +22,7 @@ public class ViewTimeline {
 
     public List<String> view(final String user) {
 
-        return timelineService.getTimeline(user).posts.stream()
+        return timelineService.getTimeline(new User(user)).posts.stream()
                 .map(this::formatPost)
                 .collect(Collectors.toList());
     }
