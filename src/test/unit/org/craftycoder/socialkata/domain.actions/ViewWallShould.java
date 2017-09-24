@@ -1,8 +1,9 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Posts;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
+import org.craftycoder.socialkata.domain.service.TimelineService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class ViewWallShould {
 
     @Mock
-    private Posts postsMock;
+    private TimelineService timelineServiceMock;
     @Mock
     private Clock clockMock;
 
@@ -35,7 +36,10 @@ public class ViewWallShould {
     @Test
     public void recover_an_empty_wall() {
 
-        ViewWall viewWall = new ViewWall(postsMock, clockMock);
+        when(timelineServiceMock.getTimeline("Bob"))
+                .thenReturn(new Timeline(Collections.emptyList()));
+
+        ViewWall viewWall = new ViewWall(timelineServiceMock, clockMock);
 
         List<String> result = viewWall.view("Bob");
 
@@ -46,13 +50,13 @@ public class ViewWallShould {
     @Test
     public void recover_a_wall_of_a_user_who_follows_no_one_with_two_posts() {
 
-        when(postsMock.filterByUserReverseSorting("Bob"))
-                .thenReturn(Arrays.asList(BOB_POST_1, BOB_POST_2));
+        when(timelineServiceMock.getTimeline("Bob"))
+                .thenReturn(new Timeline(Arrays.asList(BOB_POST_1, BOB_POST_2)));
 
         when(clockMock.now())
                 .thenReturn(NOW);
 
-        ViewWall viewWall = new ViewWall(postsMock, clockMock);
+        ViewWall viewWall = new ViewWall(timelineServiceMock, clockMock);
 
         List<String> result = viewWall.view("Bob");
 

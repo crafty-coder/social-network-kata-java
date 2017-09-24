@@ -37,7 +37,7 @@ public class Application {
 
         FollowUser followUser = new FollowUser(follows);
 
-        ViewWall viewWall = new ViewWall(posts, clock);
+        ViewWall viewWall = new ViewWall(timelineService, clock);
 
         Console console = new ConsoleShell(System.in, System.out);
 

@@ -63,7 +63,7 @@ public class ViewWallShould {
         );
 
         FollowUser followUser = new FollowUser(follows);
-        ViewWall viewWall = new ViewWall(posts,clockMock);
+        ViewWall viewWall = new ViewWall(timelineService,clockMock);
 
         SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
 
