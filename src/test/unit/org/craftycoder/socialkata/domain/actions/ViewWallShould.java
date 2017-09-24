@@ -2,8 +2,9 @@ package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
 import org.craftycoder.socialkata.domain.model.Timeline;
+import org.craftycoder.socialkata.domain.model.Wall;
 import org.craftycoder.socialkata.domain.ports.Clock;
-import org.craftycoder.socialkata.domain.service.TimelineService;
+import org.craftycoder.socialkata.domain.service.WallService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,7 +21,8 @@ import static org.mockito.Mockito.when;
 public class ViewWallShould {
 
     @Mock
-    private TimelineService timelineServiceMock;
+    private WallService wallServiceMock;
+
     @Mock
     private Clock clockMock;
 
@@ -28,20 +30,28 @@ public class ViewWallShould {
     private Long ONE_MINUTE_BEFORE = 1506167080_000L;
     private Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
-    private Post ALICE_POST = new Post("Alice", "I love the weather today", System.currentTimeMillis());
+    private Post ALICE_POST = new Post("Alice", "I love the weather today", NOW);
     private Post BOB_POST_1 = new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE);
     private Post BOB_POST_2 = new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE);
+
+    private Timeline BOB_Timeline = new Timeline(Arrays.asList(BOB_POST_1, BOB_POST_2));
+
+    private Timeline Alice_Timeline = new Timeline(Collections.singletonList(ALICE_POST));
+    private Wall Alice_Wall = new Wall(Arrays.asList(BOB_Timeline,Alice_Timeline));
+
+    private Wall EMPTY_WALL = new Wall(Collections.singletonList(new Timeline(Collections.emptyList())));
+
 
 
     @Test
     public void recover_an_empty_wall() {
 
-        when(timelineServiceMock.getTimeline("Bob"))
-                .thenReturn(new Timeline(Collections.emptyList()));
+        when(wallServiceMock.getWall("Charlie"))
+                .thenReturn(EMPTY_WALL);
 
-        ViewWall viewWall = new ViewWall(timelineServiceMock, clockMock);
+        ViewWall viewWall = new ViewWall(wallServiceMock, clockMock);
 
-        List<String> result = viewWall.view("Bob");
+        List<String> result = viewWall.view("Charlie");
 
         assertEquals(Collections.emptyList(), result);
 
@@ -50,17 +60,18 @@ public class ViewWallShould {
     @Test
     public void recover_a_wall_of_a_user_who_follows_no_one_with_two_posts() {
 
-        when(timelineServiceMock.getTimeline("Bob"))
-                .thenReturn(new Timeline(Arrays.asList(BOB_POST_1, BOB_POST_2)));
+        when(wallServiceMock.getWall("Alice"))
+                .thenReturn(Alice_Wall);
 
         when(clockMock.now())
                 .thenReturn(NOW);
 
-        ViewWall viewWall = new ViewWall(timelineServiceMock, clockMock);
+        ViewWall viewWall = new ViewWall(wallServiceMock, clockMock);
 
-        List<String> result = viewWall.view("Bob");
+        List<String> result = viewWall.view("Alice");
 
         assertEquals(Arrays.asList(
+                "Alice - I love the weather today (an instant ago)",
                 "Bob - Good game though. (1 minute ago)",
                 "Bob - Damn! We lost! (2 minutes ago)"
         ), result);

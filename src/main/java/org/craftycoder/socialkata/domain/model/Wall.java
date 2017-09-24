@@ -11,7 +11,7 @@ public class Wall {
         this.timelines = timelines;
     }
 
-    public List<Post> aggregatedPost() {
+    public List<Post> aggregatedPosts() {
         return timelines.stream()
                 .flatMap(t -> t.posts.stream())
                 .sorted((p1, p2) -> Long.compare(p2.timestamp, p1.timestamp))

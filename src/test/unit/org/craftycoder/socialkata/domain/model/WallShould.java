@@ -29,7 +29,7 @@ public class WallShould {
     public void return_aggregated_post_of_empty_wall() {
         assertEquals(
                 Collections.emptyList(),
-                EMPTY_WALL.aggregatedPost()
+                EMPTY_WALL.aggregatedPosts()
         );
     }
 
@@ -38,7 +38,7 @@ public class WallShould {
 
         assertEquals(
                 Arrays.asList(ALICE_POST, BOB_POST_1, BOB_POST_2),
-                Alice_Wall.aggregatedPost()
+                Alice_Wall.aggregatedPosts()
         );
 
 
