@@ -1,8 +1,9 @@
 package org.craftycoder.socialkata.domain.actions;
 
 import org.craftycoder.socialkata.domain.model.Post;
-import org.craftycoder.socialkata.domain.model.Posts;
+import org.craftycoder.socialkata.domain.model.Timeline;
 import org.craftycoder.socialkata.domain.ports.Clock;
+import org.craftycoder.socialkata.domain.service.TimelineService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class ViewTimelineShould {
 
     @Mock
-    private Posts postsMock;
+    private TimelineService timelineServiceMock;
     @Mock
     private Clock clockMock;
 
@@ -28,10 +29,10 @@ public class ViewTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_without_post() {
 
-        ViewTimeline viewTimeline = new ViewTimeline(postsMock, clockMock);
+        ViewTimeline viewTimeline = new ViewTimeline(timelineServiceMock, clockMock);
 
-        when(postsMock.filterByUserReverseSorting("Alice"))
-                .thenReturn(Collections.emptyList());
+        when(timelineServiceMock.getTimeline("Alice"))
+                .thenReturn(new Timeline(Collections.emptyList()));
 
         List<String> result = viewTimeline.view("Alice");
         List<String> expectedResult = Collections.emptyList();
@@ -42,14 +43,16 @@ public class ViewTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_with_one_post() {
 
-        ViewTimeline viewTimeline = new ViewTimeline(postsMock, clockMock);
+        ViewTimeline viewTimeline = new ViewTimeline(timelineServiceMock, clockMock);
         Long NOW = 1506167145_000L;
         Long FEW_SECONDS_BEFORE = 1506167130_000L;
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postsMock.filterByUserReverseSorting("Alice"))
-                .thenReturn(Collections.singletonList(new Post("Alice", "I love the weather today", FEW_SECONDS_BEFORE)));
+        when(timelineServiceMock.getTimeline("Alice"))
+                .thenReturn(new Timeline(Collections.singletonList(
+                        new Post("Alice", "I love the weather today", FEW_SECONDS_BEFORE))
+                ));
 
 
         List<String> result = viewTimeline.view("Alice");
@@ -63,18 +66,19 @@ public class ViewTimelineShould {
     @Test
     public void recover_the_timeline_of_a_user_with_two_post() {
 
-        ViewTimeline viewTimeline = new ViewTimeline(postsMock, clockMock);
+        ViewTimeline viewTimeline = new ViewTimeline(timelineServiceMock, clockMock);
         Long NOW = 1506167145_000L;
         Long ONE_MINUTE_BEFORE = 1506167080_000L;
         Long TWO_MINUTES_BEFORE = 1506167015_000L;
 
         when(clockMock.now())
                 .thenReturn(NOW);
-        when(postsMock.filterByUserReverseSorting("Bob"))
-                .thenReturn(Arrays.asList(
-                        new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
-                        new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)
-                ));
+        when(timelineServiceMock.getTimeline("Bob"))
+                .thenReturn(new Timeline(
+                        Arrays.asList(
+                                new Post("Bob", "Good game though.", ONE_MINUTE_BEFORE),
+                                new Post("Bob", "Damn! We lost!", TWO_MINUTES_BEFORE)
+                        )));
 
 
         List<String> result = viewTimeline.view("Bob");

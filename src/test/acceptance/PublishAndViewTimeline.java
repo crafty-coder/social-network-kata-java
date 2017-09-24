@@ -7,6 +7,7 @@ import org.craftycoder.socialkata.domain.actions.ViewWall;
 import org.craftycoder.socialkata.domain.model.Follows;
 import org.craftycoder.socialkata.domain.model.Posts;
 import org.craftycoder.socialkata.domain.ports.Clock;
+import org.craftycoder.socialkata.domain.service.TimelineService;
 import org.craftycoder.socialkata.infrastructure.InMemoryFollows;
 import org.craftycoder.socialkata.infrastructure.InMemoryPosts;
 import org.craftycoder.socialkata.infrastructure.SystemClock;
@@ -37,6 +38,7 @@ public class PublishAndViewTimeline {
         Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
+        TimelineService timelineService = new TimelineService(posts);
 
         PublishPost publishPost = new PublishPost(
                 posts,
@@ -44,7 +46,7 @@ public class PublishAndViewTimeline {
         );
 
         ViewTimeline viewTimeline = new ViewTimeline(
-                posts,
+                timelineService,
                 clock
         );
 
@@ -73,6 +75,7 @@ public class PublishAndViewTimeline {
         Posts posts = new InMemoryPosts();
         Follows follows = new InMemoryFollows();
         Clock clock = new SystemClock();
+        TimelineService timelineService = new TimelineService(posts);
 
         PublishPost publishPost = new PublishPost(
                 posts,
@@ -80,7 +83,7 @@ public class PublishAndViewTimeline {
         );
 
         ViewTimeline viewTimeline = new ViewTimeline(
-                posts,
+                timelineService,
                 clock
         );
 
