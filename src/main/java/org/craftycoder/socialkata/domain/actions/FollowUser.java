@@ -12,7 +12,7 @@ public class FollowUser {
         this.follows = follows;
     }
 
-    public void follow(String follower, String followed) {
+    public void follow(final String follower, final String followed) {
         follows.addFollow(new User(follower), new User(followed));
     }
 }

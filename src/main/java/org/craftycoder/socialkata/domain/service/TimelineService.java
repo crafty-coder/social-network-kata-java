@@ -11,12 +11,12 @@ public class TimelineService {
 
     private final Posts posts;
 
-    public TimelineService(Posts posts) {
+    public TimelineService(final Posts posts) {
 
         this.posts = posts;
     }
 
-    public Timeline getTimeline(User user) {
+    public Timeline getTimeline(final User user) {
 
         List<Post> userPosts = posts.filterByUserReverseSorting(user);
         return new Timeline(userPosts);

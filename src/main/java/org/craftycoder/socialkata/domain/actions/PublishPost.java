@@ -11,12 +11,12 @@ public class PublishPost {
     private final Posts posts;
     private final Clock clock;
 
-    public PublishPost(Posts posts, Clock clock) {
+    public PublishPost(final Posts posts, final Clock clock) {
         this.posts = posts;
         this.clock = clock;
     }
 
-    public void publishPost(String user, String text) {
+    public void publishPost(final String user, final String text) {
         posts.save(new Post(new User(user), text, clock.now()));
     }
 

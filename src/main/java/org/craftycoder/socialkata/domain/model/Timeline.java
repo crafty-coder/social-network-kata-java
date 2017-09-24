@@ -5,7 +5,7 @@ import java.util.List;
 public class Timeline {
     public final List<Post> posts;
 
-    public Timeline(List<Post> posts) {
+    public Timeline(final List<Post> posts) {
         this.posts = posts;
     }
 

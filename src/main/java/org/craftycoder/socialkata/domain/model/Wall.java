@@ -7,7 +7,7 @@ public class Wall {
 
     private final List<Timeline> timelines;
 
-    public Wall(List<Timeline> timelines) {
+    public Wall(final List<Timeline> timelines) {
         this.timelines = timelines;
     }
 

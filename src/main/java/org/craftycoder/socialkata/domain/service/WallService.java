@@ -14,13 +14,13 @@ public class WallService {
     private final TimelineService timelineService;
     private final Follows follows;
 
-    public WallService(TimelineService timelineService, Follows follows) {
+    public WallService(final TimelineService timelineService, final Follows follows) {
 
         this.timelineService = timelineService;
         this.follows = follows;
     }
 
-    public Wall getWall(User user) {
+    public Wall getWall(final User user) {
 
         Set<User> users = follows.followedBy(user);
         users.add(user);

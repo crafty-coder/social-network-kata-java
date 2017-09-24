@@ -12,7 +12,7 @@ public class SocialClient {
     private final Console console;
     private final ActionDispatcher actionDispatcher;
 
-    public SocialClient(Console console, PublishPost publishPost, ViewTimeline viewTimeline, FollowUser followUser, ViewWall viewWall) {
+    public SocialClient(final Console console, final PublishPost publishPost, final ViewTimeline viewTimeline, final FollowUser followUser, final ViewWall viewWall) {
         this.console = console;
         this.actionDispatcher = new ActionDispatcher(console, publishPost, viewTimeline, followUser, viewWall);
     }

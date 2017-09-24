@@ -2,7 +2,7 @@ package org.craftycoder.socialkata.domain.util;
 
 public class TimeFormatter {
 
-    public static String timeAgoFormatter(Long current, Long ago) {
+    public static String timeAgoFormatter(final Long current, final Long ago) {
 
         Long diff = current - ago;
 

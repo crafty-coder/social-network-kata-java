@@ -13,7 +13,7 @@ public class InMemoryFollows implements Follows {
     private final Map<User, Set<User>> follows = new HashMap<>();
 
     @Override
-    public void addFollow(User follower, User followed) {
+    public void addFollow(final User follower, final User followed) {
 
         Set<User> followedUsers = followedBy(follower);
 
@@ -23,7 +23,7 @@ public class InMemoryFollows implements Follows {
 
     }
 
-    public Set<User> followedBy(User user) {
+    public Set<User> followedBy(final User user) {
         return follows
                 .getOrDefault(user, new HashSet<>());
     }

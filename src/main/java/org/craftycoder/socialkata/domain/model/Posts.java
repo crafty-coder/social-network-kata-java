@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Posts {
 
-    void save(Post post);
+    void save(final Post post);
 
-    List<Post> filterByUserReverseSorting(User user);
+    List<Post> filterByUserReverseSorting(final User user);
 }
