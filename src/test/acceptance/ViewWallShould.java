@@ -31,7 +31,6 @@ public class ViewWallShould {
     private Clock clockMock;
 
 
-    @Ignore("Work in porgress")
     @Test
     public void should_view_a_wall_aggregating_followings_timeline() {
 
@@ -46,6 +45,8 @@ public class ViewWallShould {
         Mockito.when(clockMock.now())
                 .thenReturn(0L)
                 .thenReturn(298_000L)
+                .thenReturn(300_000L)
+                .thenReturn(300_000L)
                 .thenReturn(300_000L);
 
 
@@ -72,7 +73,7 @@ public class ViewWallShould {
 
         sc.start();
 
-        verify(consoleMock, times(3)).read();
+        verify(consoleMock, times(5)).read();
         verify(consoleMock, times(1)).println("Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago)");
         verify(consoleMock, times(1)).println("Alice - I love the weather today (5 minutes ago)");
 
