@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ViewWallShould {
+public class AddFollowsAndViewWall {
 
     @Mock
     private Console consoleMock;
