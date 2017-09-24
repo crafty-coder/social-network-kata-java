@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 
 public class ViewTimeline {
 
-    private final Posts postsMock;
+    private final Posts posts;
     private final Clock clockMock;
 
-    public ViewTimeline(Posts postsMock, Clock clockMock) {
+    public ViewTimeline(Posts posts, Clock clock) {
 
-        this.postsMock = postsMock;
-        this.clockMock = clockMock;
+        this.posts = posts;
+        this.clockMock = clock;
     }
 
     public List<String> view(String user) {
 
-        return postsMock.filterByUserReverseSorting(user).stream()
+        return posts.filterByUserReverseSorting(user).stream()
                 .map(this::formatPost)
                 .collect(Collectors.toList());
     }

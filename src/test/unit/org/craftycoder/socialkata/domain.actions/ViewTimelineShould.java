@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class ViewUserPostsShould {
+public class ViewTimelineShould {
 
     @Mock
     private Posts postsMock;

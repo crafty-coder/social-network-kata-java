@@ -50,7 +50,7 @@ public class PublishAndViewTimeline {
 
         FollowUser followUser = new FollowUser(follows);
 
-        ViewWall viewWall = new ViewWall();
+        ViewWall viewWall = new ViewWall(posts, clock);
 
 
         SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
@@ -85,7 +85,7 @@ public class PublishAndViewTimeline {
         );
 
         FollowUser followUser = new FollowUser(follows);
-        ViewWall viewWall = new ViewWall();
+        ViewWall viewWall = new ViewWall(posts, clock);
 
         SocialClient sc = new SocialClient(consoleMock, publishPost, viewTimeline, followUser, viewWall);
 

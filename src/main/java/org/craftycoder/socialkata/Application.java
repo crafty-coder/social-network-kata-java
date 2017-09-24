@@ -34,7 +34,7 @@ public class Application {
 
         FollowUser followUser = new FollowUser(follows);
 
-        ViewWall viewWall = new ViewWall();
+        ViewWall viewWall = new ViewWall(posts, clock);
 
         Console console = new ConsoleShell(System.in, System.out);
 
